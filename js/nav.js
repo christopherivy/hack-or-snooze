@@ -16,13 +16,14 @@ $body.on("click", "#nav-all", navAllStories);
 
 // 🦊 create submit link on page
 function navSubmitClick(evt) {
+	evt.preventDefault();
 	console.debug("navSubmitClick", evt);
 	hidePageComponents();
-	$navSubmit.show();
-	$navSubmit.hide();
+	$submitForm.show();
+	navAllStories();
 }
 
-$navSubmit.on("click", ".navbar-submit", navSubmitClick);
+$navSubmit.on("click", navSubmitClick);
 
 /** Show login/signup on click on "login" */
 

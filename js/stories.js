@@ -6,10 +6,10 @@ let storyList;
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
-  storyList = await StoryList.getStories();
-  $storiesLoadingMsg.remove();
+	storyList = await StoryList.getStories();
+	$storiesLoadingMsg.remove();
 
-  putStoriesOnPage();
+	putStoriesOnPage();
 }
 
 /**
@@ -20,10 +20,10 @@ async function getAndShowStoriesOnStart() {
  */
 
 function generateStoryMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
+	// console.debug("generateStoryMarkup", story);
 
-  const hostName = story.getHostName();
-  return $(`
+	const hostName = story.getHostName();
+	return $(`
       <li id="${story.storyId}">
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
@@ -38,15 +38,40 @@ function generateStoryMarkup(story) {
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
-  console.debug("putStoriesOnPage");
+	console.debug("putStoriesOnPage");
 
-  $allStoriesList.empty();
+	$allStoriesList.empty();
 
-  // loop through all of our stories and generate HTML for them
-  for (let story of storyList.stories) {
-    const $story = generateStoryMarkup(story);
-    $allStoriesList.append($story);
-  }
+	// loop through all of our stories and generate HTML for them
+	for (let story of storyList.stories) {
+		const $story = generateStoryMarkup(story);
+		$allStoriesList.append($story);
+	}
 
-  $allStoriesList.show();
+	$allStoriesList.show();
 }
+
+// submit button function
+async function getFormInputs(evt) {
+	evt.preventDefault();
+
+	//get the inputs from all 3 fields
+	let $authorInput = $("#author-input");
+	let $titleInput = $("#title-input");
+	let $urlInput = $("#url-input");
+	// console.log(currentUser);
+
+	//add the story
+	let newStory = await storyList.addStory(currentUser, {
+		title: $titleInput.val(),
+		author: $authorInput.val(),
+		url: $urlInput.val(),
+	});
+
+	putStoriesOnPage();
+	$allStoriesList.show();
+
+	//add the story to the page
+}
+
+$newStoryBtn.on("click", getFormInputs);

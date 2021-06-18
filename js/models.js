@@ -74,7 +74,7 @@ class StoryList {
 	async addStory(user, { title, author, url }) {
 		let token = user.loginToken;
 
-		// const response = await axios()
+		// const response = await axios.post(``)
 
 		const response = await axios({
 			method: "POST",
@@ -83,6 +83,7 @@ class StoryList {
 		});
 
 		const story = new Story(response.data.story);
+		console.log(story);
 
 		return story;
 	}
