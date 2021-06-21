@@ -1,4 +1,4 @@
-("use strict");
+("use strict"); // hello!!!
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
 
 /******************************************************************************
@@ -83,7 +83,6 @@ class StoryList {
 		});
 
 		const story = new Story(response.data.story);
-		console.log(story);
 
 		return story;
 	}

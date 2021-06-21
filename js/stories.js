@@ -51,7 +51,7 @@ function putStoriesOnPage() {
 	$allStoriesList.show();
 }
 
-// submit button function
+// 🦊submit button function
 async function getFormInputs(evt) {
 	evt.preventDefault();
 
@@ -68,10 +68,15 @@ async function getFormInputs(evt) {
 		url: $urlInput.val(),
 	});
 
-	putStoriesOnPage();
-	$allStoriesList.show();
+	//add the story to the page and empty the input fields
 
-	//add the story to the page
+	const story = generateStoryMarkup(newStory);
+
+	$allStoriesList.prepend(story);
+
+	$titleInput.val("");
+	$authorInput.val("");
+	$urlInput.val("");
 }
 
 $newStoryBtn.on("click", getFormInputs);
